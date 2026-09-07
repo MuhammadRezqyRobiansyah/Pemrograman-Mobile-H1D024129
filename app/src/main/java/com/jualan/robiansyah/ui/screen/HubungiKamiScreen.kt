@@ -3,8 +3,8 @@ package com.jualan.robiansyah.ui.screen
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Email
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -95,7 +95,7 @@ fun HubungiKamiScreen(navController: NavController?) {
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    Icon(imageVector = Icons.Default.Send, contentDescription = "Send")
+                    Icon(imageVector = Icons.AutoMirrored.Filled.Send, contentDescription = "Send")
                     Spacer(modifier = Modifier.padding(horizontal = 4.dp))
                     Text(
                         text = "Kirim Pesan",
