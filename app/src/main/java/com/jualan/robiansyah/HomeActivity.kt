@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +14,7 @@ import com.jualan.robiansyah.ui.screen.DaftarProdukScreen
 import com.jualan.robiansyah.ui.screen.DetailProductScreen
 import com.jualan.robiansyah.ui.screen.HubungiKamiScreen
 import com.jualan.robiansyah.ui.theme.JualanTheme
+import com.jualan.robiansyah.ui.viewmodel.ProductViewModel
 
 class HomeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,17 +23,19 @@ class HomeActivity : ComponentActivity() {
         setContent {
             JualanTheme {
                 val navController = rememberNavController()
+                val productViewModel: ProductViewModel = viewModel()
 
                 NavHost(
                     navController = navController,
                     startDestination = "daftar_produk"
                 ) {
-                    // Rute 1: Daftar Produk Utama
                     composable(route = "daftar_produk") {
-                        DaftarProdukScreen(navController = navController)
+                        DaftarProdukScreen(
+                            navController = navController,
+                            viewModel = productViewModel
+                        )
                     }
 
-                    // Rute 2: Detail Produk (Menerima Argumen Integer)
                     composable(
                         route = "detail/{productId}",
                         arguments = listOf(
@@ -43,11 +47,11 @@ class HomeActivity : ComponentActivity() {
                         val productId = backStackEntry.arguments?.getInt("productId") ?: 0
                         DetailProductScreen(
                             productId = productId,
-                            navController = navController
+                            navController = navController,
+                            viewModel = productViewModel
                         )
                     }
 
-                    // Rute 3: Form Hubungi Kami
                     composable(route = "hubungi_kami") {
                         HubungiKamiScreen(navController = navController)
                     }
