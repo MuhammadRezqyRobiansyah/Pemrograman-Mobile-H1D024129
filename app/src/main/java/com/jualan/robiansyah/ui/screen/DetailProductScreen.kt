@@ -128,80 +128,142 @@ fun StatelessDetailProduct(
                     "${BASE_URL}img/${product.img}"
                 }
 
-                Box(modifier = Modifier.fillMaxWidth()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(220.dp)
+                        .background(Color(0xFF135D2A)),
+                    contentAlignment = Alignment.Center
+                ) {
                     AsyncImage(
                         model = imageModel,
                         contentDescription = product.name,
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(280.dp)
-                            .aspectRatio(1f)
-                            .clip(shape = RoundedCornerShape(size = 8.dp))
-                            .background(color = Color.White),
+                            .size(160.dp)
+                            .clip(RoundedCornerShape(8.dp)),
                         contentScale = ContentScale.Fit
                     )
                 }
 
-                Column(modifier = Modifier.padding(16.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    // Category Badge
+                    if (product.category != null) {
+                        Surface(
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            shape = RoundedCornerShape(4.dp),
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        ) {
+                            Text(
+                                text = product.category.name,
+                                style = MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                            )
+                        }
+                    }
+
                     Text(
                         text = product.name,
                         style = MaterialTheme.typography.headlineSmall,
                         fontWeight = FontWeight.Bold
                     )
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
                     Text(
                         text = "Rp ${product.price}",
                         style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Text("Deskripsi", fontWeight = FontWeight.Bold)
-                    Text(product.description ?: "-")
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text("Stok: ${product.stock}")
+                    Text(
+                        text = "Deskripsi",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                    Spacer(modifier = Modifier.height(4.dp))
 
-                    // Pengatur Jumlah Beli (Stepper)
+                    Text(
+                        text = product.description ?: "-",
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Text(
+                        text = "Stok Tersedia: ${product.stock}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    // Stepper
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("Jumlah Beli")
-                        Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Jumlah Beli",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold
+                        )
+
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             FilledTonalIconButton(
                                 onClick = { if (quantity > 1) onQuantityChange(quantity - 1) },
                                 enabled = quantity > 1
                             ) {
-                                Text("-")
+                                Text("-", fontWeight = FontWeight.Bold)
                             }
+
                             Text(
                                 text = quantity.toString(),
+                                style = MaterialTheme.typography.titleMedium,
+                                fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(horizontal = 16.dp)
                             )
+
                             FilledTonalIconButton(
-                                onClick = {
-                                    if (quantity < product.stock) onQuantityChange(quantity + 1)
-                                },
+                                onClick = { if (quantity < product.stock) onQuantityChange(quantity + 1) },
                                 enabled = quantity < product.stock
                             ) {
-                                Text("+")
+                                Text("+", fontWeight = FontWeight.Bold)
                             }
                         }
                     }
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                    Spacer(modifier = Modifier.height(24.dp))
 
                     Button(
                         onClick = onAddToCartClick,
+                        enabled = product.stock > 0 && quantity > 0,
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp),
-                        enabled = product.stock > 0 && quantity > 0
+                        shape = RoundedCornerShape(50)
                     ) {
-                        Text("Tambah ke Keranjang")
+                        Text(
+                            text = "Tambah ke Keranjang",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }

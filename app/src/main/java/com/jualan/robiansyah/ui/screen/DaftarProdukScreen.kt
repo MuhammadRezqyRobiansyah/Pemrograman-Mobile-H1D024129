@@ -41,7 +41,6 @@ fun ProductItemCard(
 ) {
     Card(
         modifier = Modifier
-            .padding(all = 4.dp)
             .fillMaxWidth()
             .clickable(onClick = onClick),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
@@ -50,8 +49,7 @@ fun ProductItemCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(all = 12.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(8.dp)
         ) {
             val imageModel: Any = if (product.img == "dummy_product") {
                 R.drawable.dummy_product
@@ -59,17 +57,41 @@ fun ProductItemCard(
                 "${BASE_URL}img/${product.img}"
             }
 
-            Box(modifier = Modifier.fillMaxWidth()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(130.dp)
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(Color(0xFF135D2A)),
+                contentAlignment = Alignment.Center
+            ) {
                 AsyncImage(
                     model = imageModel,
                     contentDescription = product.name,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .aspectRatio(1f)
-                        .clip(shape = RoundedCornerShape(size = 8.dp))
-                        .background(color = Color.White),
+                        .fillMaxSize()
+                        .padding(8.dp),
                     contentScale = ContentScale.Fit
                 )
+
+                // Category badge Overlay at Top-Right
+                if (product.category != null) {
+                    Surface(
+                        color = MaterialTheme.colorScheme.secondaryContainer,
+                        shape = RoundedCornerShape(4.dp),
+                        modifier = Modifier
+                            .align(Alignment.TopEnd)
+                            .padding(6.dp)
+                    ) {
+                        Text(
+                            text = product.category.name,
+                            style = MaterialTheme.typography.labelSmall,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSecondaryContainer,
+                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                        )
+                    }
+                }
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -82,11 +104,12 @@ fun ProductItemCard(
                 overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             Text(
                 text = "Rp ${product.price}",
                 style = MaterialTheme.typography.bodyMedium,
+                fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary
             )
         }
