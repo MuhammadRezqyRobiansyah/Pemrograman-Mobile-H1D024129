@@ -13,3 +13,8 @@ Buka file melalui app/src/main/java/com/jualan/robiansyah/MainActivity.kt
 <img width="720" height="1600" alt="pemob gambar contact" src="https://github.com/user-attachments/assets/78bf4520-0336-4904-93dc-51e6bc5e10f2" />
 <img width="720" height="1600" alt="pemob awal" src="https://github.com/user-attachments/assets/c2ac94bb-1c59-439f-9f8a-c000cea7d6ea" />
 <img width="720" height="1600" alt="pemob detail" src="https://github.com/user-attachments/assets/0e9691af-6306-4312-8637-3e341e5c38f7" />
+
+# Modul 5
+<img width="720" height="1600" alt="pemob 5 1" src="https://github.com/user-attachments/assets/49470ef7-ccfc-435c-83ba-829a8417a753" />
+<img width="720" height="1600" alt="pemob 5 2" src="https://github.com/user-attachments/assets/f689f313-d576-4618-8f8a-16bd696a7f47" />
+
